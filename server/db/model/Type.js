@@ -14,12 +14,12 @@ Type.find({}, function(err, types){
 		console.error(err);
 	}else{
 		if(types.length == 0){
-			type_viaje = new Type({name: 'Viaje'});
+			var type_viaje = new Type({name: 'Viaje'});
 			type_viaje.save(function(){
 				console.log('type_viaje ' + type_viaje.id); 
 			});
 
-			type_estacionamiento = new Type({name: 'Estacionamiento'});
+			var type_estacionamiento = new Type({name: 'Estacionamiento'});
 			type_estacionamiento.save(function(){
 				console.log('type_estacionamiento ' + type_estacionamiento.id); 
 			});
