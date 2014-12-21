@@ -1,0 +1,110 @@
+<div>
+    <script type="text/ng-template" id="issueForm.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Nuevo Tema</h4>
+        </div>
+                 <form name="issueForm" id="issueForm" role="form" class="form-horizontal"
+                         ng-submit="processForm()">
+                 <div class="modal-body">    
+                      <div class="form-group">
+                         <label for="type" class="col-sm-2 control-label">Tipo</label>
+						 <div class="col-sm-10">
+                         		<select class="form-control input-sm" name="type" ng-model="issue.type"
+                              		 ng-options="type.name for type in types track by type.id" requiered>
+                         		</select>         
+						 </div>	
+					  </div>
+                      <div class="form-group">
+                         <label for="summary" class="col-sm-2 control-label">Resumen</label>
+						 <div class="col-sm-10">
+                         	<input type="text" class="form-control input-sm" id="summary" 
+						 			name="summary" placeholder="Ingresá Resumen"
+                                 	ng-model="issue.summary" required></input>
+									
+						  </div>		 
+                      </div> 
+					  <div class="form-group">
+                         <label for="description" class="col-sm-2 control-label">Descripción</label>
+						 <div class="col-sm-10">
+                         	<textarea type="text" class="form-control input-sm" id="description" 
+						 			name="summary" placeholder="Ingresá descripción"
+                                 	ng-model="issue.description" required rows="3"></textarea>
+						  </div>		 
+                      </div>
+
+					  <div class="form-group">
+						 <label for="Monto" class="col-sm-2 control-label">Monto</label>
+						 <div class="col-sm-10">
+                         	<input type="text" class="form-control input-sm" id="amount" placeholder="Ingresá el Monto"
+                                 ng-model="issue.amount"></input>
+						 </div> 		 
+                      </div> 
+					   <div class="form-group">
+                         <label for="factura" class="col-sm-2 control-label">Factura</label>
+						 <div class="col-sm-10">
+                         	<input type="text" class="form-control input-sm" id="ticket" 
+								placeholder="Ingresá el Número de Factura"
+                                 ng-model="issue.ticket"></input>
+						 </div>		 
+					  </div>						
+					  <div class="form-group">
+                           <label for="date" class="col-sm-2 control-label">Fecha</label>
+						   <div class="col-sm-10">
+            					<p class="input-group">
+              						<input type="text" class="form-control" datepicker-popup="{{format}}" 
+										ng-model="issue.date" is-open="opened" 
+										min-date="minDate" max-date="'2015-06-22'" 
+										datepicker-options="dateOptions" 
+										date-disabled="disabled(date, mode)" 
+										ng-required="true" close-text="Close" />
+									<span class="input-group-btn">
+										<button type="button" class="btn btn-default" ng-click="open($event)">
+										<i class="glyphicon glyphicon-calendar"></i>
+										</button>
+									</span>
+            					</p>
+								
+						   </div>
+                      </div> 
+                      <div class="form-group">
+                         <label for="area" class="col-sm-2 control-label">Área</label>
+						   <div class="col-sm-10">
+						 		<select class="form-control input-sm" name="area" ng-model="issue.area"
+                           			 ng-options="area.name for area in areas track by area.id" requiered>
+                         		</select>
+							</div>	
+                      </div>
+                      <div class="form-group">
+                         <label for="client" class="col-sm-2 control-label">Cliente</label>
+						   <div class="col-sm-10">
+								 <select class="form-control input-sm" name="client" 
+								 ng-model="issue.client"
+								 ng-options="client.name for client in clients track by client.id" requiered>
+								 </select>     
+							</div>	 
+                       </div>
+                      <div class="form-group">
+                         <label for="client" class="col-sm-2 control-label">Modo</label>
+						 <div class="col-sm-10">
+                         		<select class="form-control input-sm" name="mode" ng-model="issue.mode"
+                              		 ng-options="mode.name for mode in modes track by mode.id" requiered>
+                         		</select>         
+						 </div>	
+					   </div>	    
+                       <div class="form-group">
+                         <label for="assign" class="col-sm-2 control-label">Asignado</label>
+						 <div class="col-sm-10">
+                         	<select class="form-control input-sm" name="asign" ng-model="issue.assigned"
+                           		 ng-options="assigned.name for assigned in leaders track by assigned.username" requiered>
+                         	</select>         
+						 </div>	
+                       </div>   
+                 </div>
+				<div class="modal-footer">
+					<button class="btn btn-default" ng-click="cancel()">Cancel</button>
+					<input type="submit"  class="btn btn-default" value="Guardar"/>  
+				</div>
+			</form>
+    </script>
+</div>
+	

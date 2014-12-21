@@ -1,0 +1,91 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+<!--<div login-dialog ng-if="!isLoginPage"></div>-->
+
+<div class="container">
+  <div class="row">
+	<div class="col-xs-1">
+	</div>
+    <div class="col-xs-9">
+			<div class="row">
+				<div class="col-xs-11">
+					<h4> <i class="glyphicon glyphicon-inbox"></i> Bandeja: {{issues.length}} Temas</h4>
+				</div>
+  				<div class="col-xs-1 pull-right">
+					<button type="button" class="btn btn-default" tooltip="nuevo" ng-click="createIssue()">
+		    		<i class="glyphicon glyphicon-pencil"></i></button>
+				</div>
+			</div>	
+			<div class="panel panel-info"  ng-repeat="issue in issues">
+				<div class="panel-heading avatar">
+					 <div class="row">
+						 <div class="col-xs-2">
+						 	<img class="img-circle" 
+							  src={{issue.reporter.avatar}}
+							  tooltip="{{issue.reporter.name}}"></img>	 
+						 </div>
+						 <div class="col-xs-7">
+							 <h6 class="panel-title">#{{issue.id}} - {{issue.summary.substring(0,50) + '...'}}</h6>
+							 <p>{{issue.date | date:'dd-MM-yyyy'}}</p>
+						 </div>
+						<div class="col-xs-3 pull-right">	
+								<button type="button" tooltip="Aprobar" class="btn btn-default" 
+										ng-click="approveIssue(issue.id, $index)">
+									<i class="glyphicon glyphicon-ok"></i></button>
+								<button type="button" tooltip="Editar" class="btn btn-default"
+										ng-click="editIssue(issue)">
+									<i class="glyphicon glyphicon-edit"></i></button>
+								<button type="button" tooltip="Asignar" class="btn btn-default">
+									<i class="glyphicon glyphicon-share-alt"></i></button>  
+								<button type="button" tooltip="Eliminar" class="btn btn-default" 
+										ng-click="removeIssue(issue.id, $index)">
+									<i class="glyphicon glyphicon-trash"></i></button>
+						</div>
+					</div>
+				</div>	
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-xs-12">
+								<span>
+									Estado: {{issue.status.name}}<br>
+									Área: {{issue.area.name}} | Cliente: {{issue.client.name}} <br>
+									Modo: {{issue.mode.name}} <br>
+									Factura: {{issue.ticket}} - Monto: {{issue.amount}}<br>
+									Resumen: {{issue.summary}}<br>
+								</span>
+							</div>
+						</div>
+						<!--
+						<div class="row">
+							<div class="col-xs-9"></div>
+							<div class="col-xs-*">	
+								  <div class="btn-group" role="group" aria-label="...">
+									<button type="button" tooltip="Aprobar" class="btn btn-default" 
+											ng-click="approveIssue(issue.id, $index)">
+										<i class="glyphicon glyphicon-ok"></i></button>
+									<button type="button" tooltip="Editar" class="btn btn-default">
+										<i class="glyphicon glyphicon-edit"></i></button>
+									<button type="button" tooltip="Asignar" class="btn btn-default">
+										<i class="glyphicon glyphicon-share-alt"></i></button>  
+									<button type="button" tooltip="Eliminar" class="btn btn-default" 
+											ng-click="removeIssue(issue.id, $index)">
+										<i class="glyphicon glyphicon-trash"></i></button>
+								  </div>
+							</div>
+						</div>	
+						-->
+					</div>
+			</div>    
+	  </div>
+	<div class="col-xs-1">
+	</div>	
+
+ </div>	 
+
+<div ng-include="'app/dashboard/issue-form.html'"></div>
+<footer class="footer">
+  <div class="container">
+      <p>FluxIT - Viáticos v0.0.1 |
+        <a href="https://twitter.com/martinsaporiti">@martinsaporiti</a> |
+        <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+  </div>
+</footer>

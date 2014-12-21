@@ -1,0 +1,32 @@
+{
+	"name": "soap",
+	"title": "jQuery Soap",
+	"version": "1.4.4",
+	"description": "jQuery plugin for communicating with a web service using SOAP. This script uses $.ajax to send the SOAP message. It can take XML DOM, XML string or JSON as input and the response can be returned as either XML DOM, XML string or JSON too. Big thanx to everybody that contributed! Let's $.soap()!",
+	"keywords": [
+		"soap",
+		"ajax",
+		"wss"
+	],
+	"homepage": "https://github.com/doedje/jquery.soap",
+	"docs": "https://github.com/doedje/jquery.soap/blob/master/README.md",
+	"author": {
+		"name": "Remy Blom",
+		"email": "remy.blom@kmt.hku.nl"
+	},
+	"maintainers": [
+		{
+		"name": "Remy Blom",
+		"email": "remy.blom@kmt.hku.nl"
+		}
+	],
+	"licenses": [
+		{
+			"type": "GNU GPLv3",
+			"url": "http://www.gnu.org/licenses/gpl.html"
+		}
+	],
+	"dependencies": {
+		"jquery": ">=1.9"
+	}
+}
