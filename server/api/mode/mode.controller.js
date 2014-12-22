@@ -1,16 +1,23 @@
 'use strict';
 
 var _ = require('lodash');
+var mode = require('../../db/model/Mode').Mode;
 
 
-var modes = [
-	  {id: '1', name:'Auto'},
-	  {id: '2', name:'Micro'}
-  ];
+//var modes = [
+//	  {id: '1', name:'Auto'},
+//	  {id: '2', name:'Micro'}
+//  ];
 
 
 exports.getAll = function(){
-	return modes;	
+  mode.find({}, function(err, modes){
+  	if(err){
+		console.error(err);
+	}else{
+		return modes;
+	}
+  });
 }
 
 exports.getModeById = function(id){
@@ -22,5 +29,11 @@ exports.getModeById = function(id){
 
 // Get list of modes
 exports.index = function(req, res) {
-  res.json(modes);
+  mode.find({}, function(err, modes){
+  	if(err){
+		console.error(err);
+	}else{
+  		res.json(modes);
+	}
+  });
 };

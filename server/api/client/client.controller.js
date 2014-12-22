@@ -3,14 +3,6 @@
 var _ = require('lodash');
 var client = require('../../db/model/Client').Client;
 
-//var clients = [
-//	  {id: '1', name: 'OSDE'},
-//	  {id: '2', name: 'Tecplata'},
-//	  {id: '3', name: 'Exolgan'},
-//	  {id: '4', name: 'RedHat'},
-//	  {id: '5', name: 'Akapol'}
-//  ];
-
 exports.getAll = function(){
 	
 	client.find({}, function(err, clients){
