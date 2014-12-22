@@ -24,7 +24,7 @@ Mode.find({}, function(err, modes){
 				console.log('Micro ' + micro.id); 
 			});
 		}else{
-			console.log('loading Modes:'  + Modes); 
+			console.log('loading Modes:'  + modes); 
 		}
 	}
 

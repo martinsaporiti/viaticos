@@ -1,7 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
-var area = require('../../db/model/area').Area;
+var area = require('../../db/model/Area').Area;
 
 //var areas = [
 //		{id: '1', name: 'Servicios'},
