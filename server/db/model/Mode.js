@@ -8,7 +8,7 @@ var ModeSchema = mongoose.Schema({
 
 var Mode = mongoose.model('Mode', ModeSchema);
 
-// Populo los tipos de viáticos.
+// Populo los Modes.
 Mode.find({}, function(err, modes){
 	if(err){
 		console.error(err);

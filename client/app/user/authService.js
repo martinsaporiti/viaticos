@@ -10,7 +10,7 @@ angular.module('angularFullStackApp')
 		return $http
 		  .post('/api/users/login', {'credentials': credentials})
 		  .then(function (res) {
-			Session.create(res.data.id, res.data.user.id,
+			Session.create(res.data.id, res.data.user._id,
 						   res.data.user.role, res.data.user.name, res.data.user);
 			return res.data.user;
 		  });

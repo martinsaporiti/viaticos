@@ -1,6 +1,7 @@
 'use strict';
 
 var _ = require('lodash');
+var User = require('../../db/model/User').User;
 
 var users = [{
 			  id: '1',
@@ -58,16 +59,29 @@ exports.login = function(req, res){
 	var userName = req.param('credentials').username;
 	var pass = req.param('credentials').password;
 	console.log('username: ' + userName + ' password ' + pass);
-	var user = users[5];
 	
-	// Se arma la resupusta.
-	var response = {
-    	id: '6', 
-		user: user,
-		status  : 200,
-    	success : 'Login Successfully'
-	}
-	res.json(200, response);
+	var loguedUser = {};
+	
+	User.find({}, function(err, users){
+		if(err){
+			console.error(err);
+		}else{
+			if(users.length > 0){
+				loguedUser = users[0];
+				console.log('loguedUser: ' + loguedUser.id);
+				// Se arma la resupusta.
+				var response = {
+					id: loguedUser.id, 
+					user: loguedUser,
+					status  : 200,
+					success : 'Login Successfully'
+				}
+				res.json(200, response);
+			}else{
+				console.log('Not Users in system'); 
+			}
+		}
+	});
 }
 
 exports.getAll = function(){

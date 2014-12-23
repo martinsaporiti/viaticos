@@ -15,7 +15,7 @@
         </li>	
       </ul>
 	  <div ng-if="currentUser">Welcome, {{ currentUser.name}}</div>
-  	  <div ng-if="isAuthorized(userRoles.admin)">You're admin.</div>  	
+  	  <div ng-if="isAuthorized(userRoles.admin)">You're an {{currentUser.role}}.</div>  	
 	  <div login-dialog ng-if="!isLoginPage"></div>
     </div>
  

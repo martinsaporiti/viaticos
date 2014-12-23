@@ -6,129 +6,130 @@ var clientController = require ('../client/client.controller.js');
 var modeController = require ('../mode/mode.controller.js');
 var statusController = require ('../status/status.controller.js');
 var userController = require ('../user/user.controller.js');
+var User = require('../../db/model/User').User;
 
 
 var issues = [
-			{id: '1', 
-			 status: {id: '1', name:'Abierto'}, 
-			 summary: 'Viaje a las oficinas de osde para celebrar retro', 
-			 date : '11/11/14',
-			 created: '12/11/14', 
-			 approved: '11/11/14',
-			 liquidation: '11/11/14',
-			 reporter : {name: 'Facundo Polo', avatar : 'http://runrun.fluxit.com.ar/images/facundo.polo'},
-			 mode : {id: '1', name: 'Auto'}, 
-			 area : {id: '1', name:'Servicios'}, 
-			 client : {id: '1', name: 'OSDE'},
-			 assigned : {
-			  id: '6',	
-			  username : 'martin.saporiti', 
-			  name : 'Martín Saporiti' , 
-			  canApprove : true,
-			  canClose : false,
-			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
-			 }},
-			{id: '2', 
-			 status: {id: '1', name:'Abierto'}, 
-			 summary : 'Viaje a las oficinas de osde para reunión con Agustín Fernandez', 
-			 date : '11/10/14',
-			 created: '11/11/14', 
-			 approved: '11/11/14',
-			 liquidation: '11/11/14',
-			 reporter : {name: 'Pablo Orsini', avatar : 'http://runrun.fluxit.com.ar/images/pablo.orsini'},
-			 mode : {id: '2', name: 'Micro'}, 
-			 area : {id: '1', name:'Servicios'},
-			 client : {id: '1', name: 'OSDE'},
-			 assigned : {
-			  id: '6',	
-			  username : 'martin.saporiti', 
-			  name : 'Martín Saporiti' , 
-			  canApprove : true,
-			  canClose : false,
-			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
-			 }
-			},
-			{id: '3', 
-			 status: {id: '1', name:'Abierto'}, 
-			 summary: 'Review en tecplata', 
-			 date : '11/09/14',
-			 created: '11/11/14', 
-			 approved: '11/11/14',
-			 liquidation: '11/11/14',
-			 reporter : {name: 'Belen Albazan', avatar : 'http://runrun.fluxit.com.ar/images/belen.almazan'},
-			 mode : {id: '2', name: 'Micro'}, 
-			 area : {id: '1', name:'Servicios'},
-			 client : {id: '2', name: 'Tecplata'},
-			 assigned : {
-			  id: '6',	
-			  username : 'martin.saporiti', 
-			  name : 'Martín Saporiti' , 
-			  canApprove : true,
-			  canClose : false,
-			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
-			 }
-			
-			},
-			{id: '4', 
-			 status: {id: '1', name:'Abierto'}, 
-			 summary: 'Reunión estratégica en Bunge', 
-			 date : '11/04/14',
-			 created: '11/11/14', 
-			 approved: '11/11/14',
-			 liquidation: '11/11/14',
-			 reporter : {name: 'Cesar Vargas', avatar : 'http://runrun.fluxit.com.ar/images/cesar.vargas'},
-			 mode : {id: '2', name: 'Micro'}, 
-			 area : {id: '1', name:'Servicios'},
-			 client : {id: '1', name: 'OSDE'},
-			 assigned : {
-			  id: '6',	
-			  username : 'martin.saporiti', 
-			  name : 'Martín Saporiti' , 
-			  canApprove : true,
-			  canClose : false,
-			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
-			 }
-			},
-			{id: '5', 
-			 status: {id: '1', name:'Abierto'}, 
-			 summary: 'Retro', 
-			 date : '19/11/14',
-			 created: '11/11/14', 
-			 approved: '11/11/14',
-			 liquidation: '11/11/14',
-			 reporter : {name: 'Anselmo Abadia', avatar : 'http://runrun.fluxit.com.ar/images/anselmo.abadia'},
-			 mode : {id: '2', name: 'Micro'}, 
-			 area : {id: '1', name:'Servicios'},
-			 client : {id: '1', name: 'OSDE'},
-			 assigned : {
-			  id: '6',	
-			  username : 'martin.saporiti', 
-			  name : 'Martín Saporiti' , 
-			  canApprove : true,
-			  canClose : false,
-			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
-			 }
-			},
-			{id: '6', 
-			 status: {id: '1', name:'Abierto'}, 
-			 summary: 'Reunión con equipos de CABA', 
-			 date : '20/11/14',
-			 created: '11/11/14', 
-			 approved: '11/11/14',
-			 liquidation: '11/11/14',
-			 reporter : {name: 'Agustina Garriga', avatar : 'http://runrun.fluxit.com.ar/images/agustina.garriga'},
-			 mode : {id: '2', name: 'Micro'}, 
-			 area : {id: '2', name:'Valor Humano'},
-			 client : {id: '1', name: 'OSDE'},
-			 assigned : {
-			  id: '6',	
-			  username : 'martin.saporiti', 
-			  name : 'Martín Saporiti' , 
-			  canApprove : true,
-			  canClose : false,
-			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
-			 }
-			}
+//			{id: '1', 
+//			 status: {id: '1', name:'Abierto'}, 
+//			 summary: 'Viaje a las oficinas de osde para celebrar retro', 
+//			 date : '11/11/14',
+//			 created: '12/11/14', 
+//			 approved: '11/11/14',
+//			 liquidation: '11/11/14',
+//			 reporter : {name: 'Facundo Polo', avatar : 'http://runrun.fluxit.com.ar/images/facundo.polo'},
+//			 mode : {id: '1', name: 'Auto'}, 
+//			 area : {id: '1', name:'Servicios'}, 
+//			 client : {id: '1', name: 'OSDE'},
+//			 assigned : {
+//			  id: '6',	
+//			  username : 'martin.saporiti', 
+//			  name : 'Martín Saporiti' , 
+//			  canApprove : true,
+//			  canClose : false,
+//			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
+//			 }},
+//			{id: '2', 
+//			 status: {id: '1', name:'Abierto'}, 
+//			 summary : 'Viaje a las oficinas de osde para reunión con Agustín Fernandez', 
+//			 date : '11/10/14',
+//			 created: '11/11/14', 
+//			 approved: '11/11/14',
+//			 liquidation: '11/11/14',
+//			 reporter : {name: 'Pablo Orsini', avatar : 'http://runrun.fluxit.com.ar/images/pablo.orsini'},
+//			 mode : {id: '2', name: 'Micro'}, 
+//			 area : {id: '1', name:'Servicios'},
+//			 client : {id: '1', name: 'OSDE'},
+//			 assigned : {
+//			  id: '6',	
+//			  username : 'martin.saporiti', 
+//			  name : 'Martín Saporiti' , 
+//			  canApprove : true,
+//			  canClose : false,
+//			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
+//			 }
+//			},
+//			{id: '3', 
+//			 status: {id: '1', name:'Abierto'}, 
+//			 summary: 'Review en tecplata', 
+//			 date : '11/09/14',
+//			 created: '11/11/14', 
+//			 approved: '11/11/14',
+//			 liquidation: '11/11/14',
+//			 reporter : {name: 'Belen Albazan', avatar : 'http://runrun.fluxit.com.ar/images/belen.almazan'},
+//			 mode : {id: '2', name: 'Micro'}, 
+//			 area : {id: '1', name:'Servicios'},
+//			 client : {id: '2', name: 'Tecplata'},
+//			 assigned : {
+//			  id: '6',	
+//			  username : 'martin.saporiti', 
+//			  name : 'Martín Saporiti' , 
+//			  canApprove : true,
+//			  canClose : false,
+//			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
+//			 }
+//			
+//			},
+//			{id: '4', 
+//			 status: {id: '1', name:'Abierto'}, 
+//			 summary: 'Reunión estratégica en Bunge', 
+//			 date : '11/04/14',
+//			 created: '11/11/14', 
+//			 approved: '11/11/14',
+//			 liquidation: '11/11/14',
+//			 reporter : {name: 'Cesar Vargas', avatar : 'http://runrun.fluxit.com.ar/images/cesar.vargas'},
+//			 mode : {id: '2', name: 'Micro'}, 
+//			 area : {id: '1', name:'Servicios'},
+//			 client : {id: '1', name: 'OSDE'},
+//			 assigned : {
+//			  id: '6',	
+//			  username : 'martin.saporiti', 
+//			  name : 'Martín Saporiti' , 
+//			  canApprove : true,
+//			  canClose : false,
+//			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
+//			 }
+//			},
+//			{id: '5', 
+//			 status: {id: '1', name:'Abierto'}, 
+//			 summary: 'Retro', 
+//			 date : '19/11/14',
+//			 created: '11/11/14', 
+//			 approved: '11/11/14',
+//			 liquidation: '11/11/14',
+//			 reporter : {name: 'Anselmo Abadia', avatar : 'http://runrun.fluxit.com.ar/images/anselmo.abadia'},
+//			 mode : {id: '2', name: 'Micro'}, 
+//			 area : {id: '1', name:'Servicios'},
+//			 client : {id: '1', name: 'OSDE'},
+//			 assigned : {
+//			  id: '6',	
+//			  username : 'martin.saporiti', 
+//			  name : 'Martín Saporiti' , 
+//			  canApprove : true,
+//			  canClose : false,
+//			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
+//			 }
+//			},
+//			{id: '6', 
+//			 status: {id: '1', name:'Abierto'}, 
+//			 summary: 'Reunión con equipos de CABA', 
+//			 date : '20/11/14',
+//			 created: '11/11/14', 
+//			 approved: '11/11/14',
+//			 liquidation: '11/11/14',
+//			 reporter : {name: 'Agustina Garriga', avatar : 'http://runrun.fluxit.com.ar/images/agustina.garriga'},
+//			 mode : {id: '2', name: 'Micro'}, 
+//			 area : {id: '2', name:'Valor Humano'},
+//			 client : {id: '1', name: 'OSDE'},
+//			 assigned : {
+//			  id: '6',	
+//			  username : 'martin.saporiti', 
+//			  name : 'Martín Saporiti' , 
+//			  canApprove : true,
+//			  canClose : false,
+//			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti'
+//			 }
+//			}
 
 ];
 
@@ -186,19 +187,32 @@ exports.addIssue = function(req, res){
 	
 	var issue = req.param('issue');
 	console.log(issue);
-	
+//	console.log('Area: ' + issue.area);
 	// Se crea el issue
-	issue.id = issues.length + 1;
+//	issue.id = issues.length + 1;
 //	issue.area = areaController.getAreaById(issue.area);
 //	issue.client = clientController.getClientById(issue.client.id);
 //	issue.mode = modeController.getModeById(issue.mode);
-	issue.status = statusController.getStatusById('1');
-	issue.assigned = userController.getUserById(issue.assigned.id);
-	issue.reporter = userController.getUserById(issue.reporter);
+//	issue.status = statusController.getStatusById('1');
+//	issue.assigned = userController.getUserById(issue.assigned.id);
+//	issue.reporter = userController.getUserById(issue.reporter);
+	
+	
 	issue.created = Date.now();
 	
+	User.findById(issue.reporter, function (err, reporter){
+  		
+		if(err){
+			console.error(err);
+		}else{
+			console.log('Reporter: ' + reporter);
+			issue.reporter = reporter;
+		}
+	});
+	
+	
 	// Se persiste el issue.
-	console.log(issue);
+	console.log('Issue a guardar: ' + issue);
 	issues.push(issue);
 	
 	// Se arma la resupusta.

@@ -70,7 +70,7 @@
                          <label for="area" class="col-sm-2 control-label">Área</label>
 						   <div class="col-sm-10">
 						 		<select class="form-control input-sm" name="area" ng-model="issue.area"
-                           			 ng-options="area.name for area in areas track by area.id" requiered>
+                           			 ng-options="area.name for area in areas track by area._id" requiered>
                          		</select>
 							</div>	
                       </div>
@@ -79,7 +79,7 @@
 						   <div class="col-sm-10">
 								 <select class="form-control input-sm" name="client" 
 								 ng-model="issue.client"
-								 ng-options="client.name for client in clients track by client.id" requiered>
+								 ng-options="client.name for client in clients track by client._id" requiered>
 								 </select>     
 							</div>	 
                        </div>
@@ -87,7 +87,7 @@
                          <label for="client" class="col-sm-2 control-label">Modo</label>
 						 <div class="col-sm-10">
                          		<select class="form-control input-sm" name="mode" ng-model="issue.mode"
-                              		 ng-options="mode.name for mode in modes track by mode.id" requiered>
+                              		 ng-options="mode.name for mode in modes track by mode._id" requiered>
                          		</select>         
 						 </div>	
 					   </div>	    
