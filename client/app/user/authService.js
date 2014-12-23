@@ -10,14 +10,13 @@ angular.module('angularFullStackApp')
 		return $http
 		  .post('/api/users/login', {'credentials': credentials})
 		  .then(function (res) {
-			Session.create(res.data.id, res.data.user._id,
-						   res.data.user.role, res.data.user.name, res.data.user);
+			Session.create(res.data.id, res.data.user);
 			return res.data.user;
 		  });
 	  };
 
 	  authService.isAuthenticated = function () {
-		return !!Session.userId;
+		return !!Session.id;
 	  };
 
 	  authService.isAuthorized = function (authorizedRoles) {
@@ -33,19 +32,16 @@ angular.module('angularFullStackApp')
 
 	.service('Session', function () {
 
-	  this.create = function (sessionId, userId, userRole, name, user) {
+	  this.create = function (sessionId, user) {
 		this.id = sessionId;
-		this.userId = userId;
-		this.userRole = userRole;
-		this.name = name;  
-		this.user = user;  
+		this.user = user;
+		this.userRole = user.role;
 	  };
 
 	  this.destroy = function () {
 		this.id = null;
-		this.userId = null;
+		this.user = null;
 		this.userRole = null;
-		this.name = null;  
 	  };
 
 	  return this;

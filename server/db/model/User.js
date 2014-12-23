@@ -5,15 +5,13 @@ var mongoose = require('mongoose');
 var UserSchema = mongoose.Schema({    		
 	username : String, 
 	name : String,
-	canApprove : Boolean,
-	canClose : Boolean,
 	avatar: String,
 	role : String
 });
 
 var User = mongoose.model('User', UserSchema);
 
-// Populo los tipos de viáticos.
+// Populo los usuarios.
 User.find({}, function(err, users){
 	if(err){
 		console.error(err);
@@ -22,14 +20,33 @@ User.find({}, function(err, users){
 			var sapo = new User({			  
 			  username : 'martin.saporiti', 
 			  name : 'Martín Saporiti' , 
-			  canApprove : true,
-			  canClose : false,
 			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti',
 			  role : 'admin'});
+			
 			sapo.save(function(){
 				console.log('sapo ' + sapo.id); 
 			});
 
+			var jey = new User({			  
+			  username : 'nicolas.garcia', 
+			  name : 'Nicolás García' , 
+			  avatar: 'http://runrun.fluxit.com.ar/images/nicolas.garcia',
+			  role : 'leader'});
+			
+			jey.save(function(){
+				console.log('Jey ' + jey.id); 
+			});
+			
+			var polo = new User({			  
+			  username : 'facundo.polo', 
+			  name : 'Facundo Polo' , 
+			  avatar: 'http://runrun.fluxit.com.ar/images/facundo.polo',
+			  role : 'leader'});
+			
+			polo.save(function(){
+				console.log('Polo ' + polo.id); 
+			});
+			
 		}else{
 			console.log('loading users:'  + users); 
 		}

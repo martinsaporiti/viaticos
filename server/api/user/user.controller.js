@@ -62,14 +62,13 @@ exports.login = function(req, res){
 	
 	var loguedUser = {};
 	
-	User.find({}, function(err, users){
+	User.findOne({username : userName}, function(err, loguedUser){
 		if(err){
 			console.error(err);
 		}else{
-			if(users.length > 0){
-				loguedUser = users[0];
+			if(loguedUser != null){	
 				console.log('loguedUser: ' + loguedUser.id);
-				// Se arma la resupusta.
+					// Se arma la resupusta.
 				var response = {
 					id: loguedUser.id, 
 					user: loguedUser,
@@ -78,7 +77,7 @@ exports.login = function(req, res){
 				}
 				res.json(200, response);
 			}else{
-				console.log('Not Users in system'); 
+				console.error('usuario no existe');
 			}
 		}
 	});
@@ -110,8 +109,11 @@ exports.index = function(req, res) {
 };
 
 exports.leaders = function(req, res){
-	var leaders = users.filter(function (element) { 
-    	return element.canApprove === true ;
+	User.find({role: 'leader'}, function(err, users){
+		if(err){
+			console.error(err);
+		}else{
+			res.json(users);
+		}
 	});
-	res.json(leaders);
 }

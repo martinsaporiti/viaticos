@@ -8,7 +8,7 @@ angular.module('angularFullStackApp')
         templateUrl: 'app/dashboard/dashboard.html',
         controller: 'DashboardCtrl',
 		data: {
-		  authorizedRoles: [USER_ROLES.admin]
+		  authorizedRoles: [USER_ROLES.admin, USER_ROLES.leader]
 		}
       });
   });

@@ -200,12 +200,10 @@ exports.addIssue = function(req, res){
 	
 	issue.created = Date.now();
 	
-	User.findById(issue.reporter, function (err, reporter){
-  		
+	User.findById(issue.reporter._id, function (err, reporter){
 		if(err){
 			console.error(err);
 		}else{
-			console.log('Reporter: ' + reporter);
 			issue.reporter = reporter;
 		}
 	});
