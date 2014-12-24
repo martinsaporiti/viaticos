@@ -35,7 +35,7 @@ angular.module('angularFullStackApp')
 
 	$scope.editIssue = function(){
 		$scope.issue.reporter = Session.user;
-		$http.post('/api/issues/' + issue.id, {issue : $scope.issue})
+		$http.post('/api/issues/' + issue._id, {issue : $scope.issue})
 			.success(function (result, status, headers, config){
 				$modalInstance.close(result.data);
 			})

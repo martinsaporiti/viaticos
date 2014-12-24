@@ -7,6 +7,8 @@ var modeController = require ('../mode/mode.controller.js');
 var statusController = require ('../status/status.controller.js');
 var userController = require ('../user/user.controller.js');
 var User = require('../../db/model/User').User;
+var Status = require('../../db/model/Status').Status;
+var Issue = require('../../db/model/Issue').Issue;
 
 
 var issues = [
@@ -144,40 +146,59 @@ exports.getIssueById = function(id){
 // Get list of issues
 exports.index = function(req, res) {
 	//TODO: tiene que retornar los issues asignados al usuario logueado.
-	res.json(issues);
+	Issue.find({}).populate('reporter').populate('assigned').exec(function(err, issues){
+		if(err){
+			console.error(err);
+		}else{
+			
+			res.json(issues);
+		}
+	});
 }
 
+// Elimina un issue
 exports.delete = function(req,res){
 	console.log('Deleting issue: ' + req.param('issueId'));
 	var issueId = req.param('issueId');
-	issues.splice(issueId-1, 1);
-	var response = {
-    	data : issues,
-		status  : 200,
-    	success : 'Deleted Successfully'
-	}
-	res.json(200, response);
+
+	Issue.remove({_id : issueId}, function(err){
+		if(!err){
+			var response = {
+				status  : 200,
+    			success : 'Deleted Successfully'
+			}
+			res.json(200, response);	
+		}
+	});
+	
+	
 }
 
-// Approve an issue. Set status as 'Approved'.
+// Approve an issue. Set status as 'Aprobado'.
 exports.approveIssue = function(req, res){
 	var issueId = req.param('issueId');
 	console.log('Approving issue: ' + req.param('issueId'));
 	
-	var filteredissues = issues.filter(function (element) { 
-    	return element.id === issueId;
+	Issue.findOne({ _id: issueId }, function (err, issue){
+		if(!err){
+			issue.status = 'Aprobado',
+			issue.save();
+		}else{
+			//Retornar un error.
+			console.error(err);
+		}
+	});	
+	
+	// No debería retornarse el issue aprobado. Solamente un ok.
+	Issue.findOne({ _id: issueId }).populate('reporter').populate('assigned').exec(function(err, issue){
+		var response = {
+			data : issue,
+			status  : 200,
+			success : 'Approved Successfully'
+		}
+		res.json(200, response);
 	});
 	
-	var issue = filteredissues[0];
-	issue.status = {id: '2', name:'Aprobado'};
-	issue.approved = Date.now();
-	
-	var response = {
-    	data : issue,
-		status  : 200,
-    	success : 'Approved Successfully'
-	}
-	res.json(200, response);
 }
 
 /*
@@ -187,32 +208,35 @@ exports.addIssue = function(req, res){
 	
 	var issue = req.param('issue');
 	console.log(issue);
-//	console.log('Area: ' + issue.area);
-	// Se crea el issue
-//	issue.id = issues.length + 1;
-//	issue.area = areaController.getAreaById(issue.area);
-//	issue.client = clientController.getClientById(issue.client.id);
-//	issue.mode = modeController.getModeById(issue.mode);
-//	issue.status = statusController.getStatusById('1');
-//	issue.assigned = userController.getUserById(issue.assigned.id);
-//	issue.reporter = userController.getUserById(issue.reporter);
-	
-	
-	issue.created = Date.now();
-	
-	User.findById(issue.reporter._id, function (err, reporter){
-		if(err){
-			console.error(err);
-		}else{
-			issue.reporter = reporter;
-		}
+
+	// Se persiste el issue.
+	console.log(' #### Guardando el nuevo Issue: ####');
+	console.log(issue);
+
+	var newIssue = new Issue({		
+		status: 'Abierto',
+		created : Date.now(), 
+		date: issue.date,
+		summary : issue.summary,
+		description : issue.description,
+		amount: issue.amount,
+		ticket: issue.ticket,
+		reporter : issue.reporter._id,
+		mode : issue.mode,
+		area : issue.area,
+		client : issue.client,
+		assigned : issue.assigned._id
 	});
 	
-	
-	// Se persiste el issue.
-	console.log('Issue a guardar: ' + issue);
-	issues.push(issue);
-	
+	newIssue.save(function(err){
+		if(!err){
+			console.log('newIssue ' + newIssue.id); 
+		}else{
+			console.error(err);
+		}
+	});
+
+	issue.status = 'Abierto'; 
 	// Se arma la resupusta.
 	var response = {
     	data : issue,
@@ -231,34 +255,26 @@ exports.editIssue = function(req, res){
 	var issue = req.param('issue');
 	console.log(issue);
 	
-	var idIssue = issue.id;
-	var indexes = issues.map(function(obj, index) {
-		if(obj.id == idIssue) {
-			return index;
+	Issue.findOne({ _id: issue._id }, function (err, issueToUpdate){
+		if(!err){
+			issueToUpdate.area = issue.area;
+			issueToUpdate.client = issue.client;
+			issueToUpdate.date = issue.date;
+			issueToUpdate.mode = issue.mode;
+			issueToUpdate.mode = issue.mode;
+			issueToUpdate.assigned = issue.assigned_id;
+			issueToUpdate.ticket = issue.ticket;
+			issueToUpdate.amount = issue.amount;
+			issueToUpdate.save();
+			// Se arma la respuesta.
+			var response = {
+				status  : 200,
+				success : 'Updated Successfully'
+			}
+			res.json(200, response);
+		}else{
+			//Retornar un error.
+			console.error(err);
 		}
-	}).filter(isFinite);
-	
-	console.log(indexes);
-	var index = indexes[0];
-	
-	issues[index].area = issue.area;
-	issues[index].client = issue.client.id;
-	issues[index].mode = issue.mode;
-	issues[index].status = issue.status;
-	issues[index].assigned = userController.getUserById(issue.assigned.id);
-	issues[index].reporter = userController.getUserById(issue.reporter);
-	issues[index].created = issue.created;
-	issues[index].ticket = issue.ticket;
-	issues[index].amount = issue.amount;
-
-	// Se persiste el issue.
-	console.log(issues[index]);
-	
-	// Se arma la respuesta.
-	var response = {
-    	data : issues[index],
-		status  : 200,
-    	success : 'Added Successfully'
-	}
-	res.json(200, response);
+	});	
 }

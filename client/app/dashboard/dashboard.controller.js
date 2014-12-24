@@ -51,7 +51,7 @@ angular.module('angularFullStackApp').
 		$scope.removeIssue = function(issueId, index){
  			$http.delete('/api/issues/' + issueId)
 				.success(function(result) {
-					$scope.issues = result.data;
+					$scope.issues.splice(index, 1);
 				});	
 		}
 		

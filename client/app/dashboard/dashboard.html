@@ -29,7 +29,7 @@
 						 </div>
 						<div class="col-xs-3 pull-right">	
 								<button type="button" tooltip="Aprobar" class="btn btn-default" 
-										ng-click="approveIssue(issue.id, $index)">
+										ng-click="approveIssue(issue._id, $index)">
 									<i class="glyphicon glyphicon-ok"></i></button>
 								<button type="button" tooltip="Editar" class="btn btn-default"
 										ng-click="editIssue(issue)">
@@ -37,7 +37,7 @@
 								<button type="button" tooltip="Asignar" class="btn btn-default">
 									<i class="glyphicon glyphicon-share-alt"></i></button>  
 								<button type="button" tooltip="Eliminar" class="btn btn-default" 
-										ng-click="removeIssue(issue.id, $index)">
+										ng-click="removeIssue(issue._id, $index)">
 									<i class="glyphicon glyphicon-trash"></i></button>
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<span>
-									Estado: {{issue.status.name}}<br>
+									Estado: {{issue.status}}<br>
 									Área: {{issue.area.name}} | Cliente: {{issue.client.name}} <br>
 									Modo: {{issue.mode.name}} <br>
 									Factura: {{issue.ticket}} - Monto: {{issue.amount}}<br>
