@@ -41,12 +41,12 @@ angular.module('angularFullStackApp').
 	
 		/* *** */
 
-		$scope.approveIssue = function(issueId, index){
-			$http.get('/api/issues/' + issueId + '/approveIssue/')
-				.success(function(result) {
-					$scope.issues[index] = result.data;
-				});	
-		}
+//		$scope.approveIssue = function(issueId, index){
+//			$http.get('/api/issues/' + issueId + '/approveIssue/')
+//				.success(function(result) {
+//					$scope.issues[index] = result.data;
+//				});	
+//		}
 
 		$scope.removeIssue = function(issueId, index){
  			$http.delete('/api/issues/' + issueId)
@@ -105,6 +105,36 @@ angular.module('angularFullStackApp').
 				}
 			}, function () {
 			  //TODO mostrar un error.
+			});
+		};
+	
+	
+		// 
+		$scope.openAssignApproveModal = function (mode, issueId, index) {
+			var modalInstance = $modal.open({
+			  templateUrl: 'assignApproveForm.html',
+			  controller: 'ModalInstanceAssAprCtrl',
+//			  size: size,
+			  mode : mode,
+			  resolve: {
+				issueId : function(){
+				  return issueId;	
+				},
+				leaders : function(){
+				  return $scope.leaders;	
+				},
+				mode : function(){
+				  return mode;
+				}  
+			  }
+			});
+
+
+			modalInstance.result.then(function (result){
+				// Si fue todo bien...
+				$scope.issues.splice(index, 1);
+			}, function () {
+				// Si falló la asignación.
 			});
 		};
 		

@@ -21,7 +21,7 @@ User.find({}, function(err, users){
 			  username : 'martin.saporiti', 
 			  name : 'Martín Saporiti' , 
 			  avatar: 'http://runrun.fluxit.com.ar/images/martin.saporiti',
-			  role : 'admin'});
+			  role : 'leader'});
 			
 			sapo.save(function(){
 				console.log('sapo ' + sapo.id); 

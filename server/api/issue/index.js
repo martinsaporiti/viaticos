@@ -5,7 +5,8 @@ var controller = require('./issue.controller');
 var router = express.Router();
 
 
-router.get('/:issueId/approveIssue', controller.approveIssue);
+router.put('/:issueId/approveIssue', controller.approveIssue);
+router.put('/:issueId/assignIssue', controller.assignIssue);
 router.post('/', controller.addIssue);
 router.delete('/:issueId', controller.delete);
 router.post('/:issueId', controller.editIssue);

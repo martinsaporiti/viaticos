@@ -55,6 +55,8 @@ var User = require('../../db/model/User').User;
 
 // Este método no debería estar acá. Quizás convenga armar una api especial.
 // Además debe autenticar contra el LDAP.
+var actualUser = {};
+
 exports.login = function(req, res){
 	var userName = req.param('credentials').username;
 	var pass = req.param('credentials').password;
@@ -69,6 +71,7 @@ exports.login = function(req, res){
 			if(loguedUser != null){	
 				console.log('loguedUser: ' + loguedUser.id);
 					// Se arma la resupusta.
+				actualUser = loguedUser.id;
 				var response = {
 					id: loguedUser.id, 
 					user: loguedUser,
@@ -83,30 +86,9 @@ exports.login = function(req, res){
 	});
 }
 
-exports.getAll = function(){
-  return users;
+exports.getActualUser = function(){
+	return actualUser;
 }
-
-exports.getUserById = function(id){
-	var filtered = users.filter(function (element) { 
-    	return element.id === id;
-	});
-	
-	return filtered[0];
-};
-
-exports.getUserByUserName = function(username){
-	var filtered = users.filter(function (element) { 
-    	return element.username === username;
-	});
-	
-	return filtered[0];
-};
-
-// Get list of users
-exports.index = function(req, res) {
-  res.json(users);
-};
 
 exports.leaders = function(req, res){
 	User.find({role: 'leader'}, function(err, users){

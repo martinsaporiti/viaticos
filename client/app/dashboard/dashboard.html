@@ -1,6 +1,4 @@
 <div ng-include="'components/navbar/navbar.html'"></div>
-<!--<div login-dialog ng-if="!isLoginPage"></div>-->
-
 <div class="container">
   <div class="row">
 	<div class="col-xs-1">
@@ -29,12 +27,13 @@
 						 </div>
 						<div class="col-xs-3 pull-right">	
 								<button type="button" tooltip="Aprobar" class="btn btn-default" 
-										ng-click="approveIssue(issue._id, $index)">
+										ng-click="openAssignApproveModal('approve', issue._id, $index)">
 									<i class="glyphicon glyphicon-ok"></i></button>
 								<button type="button" tooltip="Editar" class="btn btn-default"
 										ng-click="editIssue(issue)">
 									<i class="glyphicon glyphicon-edit"></i></button>
-								<button type="button" tooltip="Asignar" class="btn btn-default">
+								<button type="button" tooltip="Asignar" class="btn btn-default" 
+										ng-click="openAssignApproveModal('assign', issue._id, $index)">
 									<i class="glyphicon glyphicon-share-alt"></i></button>  
 								<button type="button" tooltip="Eliminar" class="btn btn-default" 
 										ng-click="removeIssue(issue._id, $index)">
@@ -46,6 +45,7 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<span>
+									Tipo: {{issue.type.name}}<br>
 									Estado: {{issue.status}}<br>
 									Área: {{issue.area.name}} | Cliente: {{issue.client.name}} <br>
 									Modo: {{issue.mode.name}} <br>
@@ -82,6 +82,8 @@
  </div>	 
 
 <div ng-include="'app/dashboard/issue-form.html'"></div>
+<div ng-include="'app/dashboard/assign-approve-Form.html'"></div>
+
 <footer class="footer">
   <div class="container">
       <p>FluxIT - Viáticos v0.0.1 |
