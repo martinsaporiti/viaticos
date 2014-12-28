@@ -32,7 +32,7 @@ angular.module('angularFullStackApp').
 		});
 
 		$http.get('/api/users/leaders').success(function(leaders) {
-		  $scope.leaders = leaders;
+		  $scope.leaders = leaders;	
 		});
 	
 		$http.get('/api/types').success(function(types) {

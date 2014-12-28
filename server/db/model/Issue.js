@@ -20,8 +20,8 @@ var IssueSchema = mongoose.Schema({
 		mode : {_id: mongoose.Schema.ObjectId, name: String}, 
 		area : {_id: mongoose.Schema.ObjectId, name: String}, 
 		client : {_id: mongoose.Schema.ObjectId, name: String}, 
-		assigned : {type: Schema.Types.ObjectId, ref: 'User'}
-
+		assigned : {type: Schema.Types.ObjectId, ref: 'User'},
+		comments : [{author: {type: Schema.Types.ObjectId, ref: 'User'}, date: Date, text: String}]
 	});
 
 var Issue = mongoose.model('Issue', IssueSchema);

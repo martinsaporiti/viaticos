@@ -85,8 +85,10 @@ exports.approveIssue = function(req, res){
 
 // Assign an issue. 
 exports.assignIssue = function(req, res){
+	
 	var issueId = req.param('issueId');
 	var assignedId = req.param('assignedId');
+	var comment = req.param('comment');
 	
 	console.log('Assigning issue: ' + req.param('issueId'));
 	console.log('Assigned: ' + req.param('assignedId'));
@@ -95,6 +97,13 @@ exports.assignIssue = function(req, res){
 		if(!err){
 			issue.assigned = assignedId;
 			issue.assignedDate =  Date.now();
+			var newComment = {
+				author : userController.getActualUser(),
+				date : Date.now(),
+				text : comment,
+			};
+			issue.comments.push(newComment);
+			
 			issue.save();
 			var response = {
 				status  : 200,

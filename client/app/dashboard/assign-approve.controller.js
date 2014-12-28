@@ -10,6 +10,7 @@ angular.module('angularFullStackApp')
 	$scope.issueId = issueId;
 	$scope.assigned = '';
 	$scope.leader = {};
+	$scope.comment;
 	
 	if($scope.mode == 'approve'){
 			$scope.title = 'Aprobar';
@@ -35,7 +36,7 @@ angular.module('angularFullStackApp')
 
 	$scope.assignIssue = function(){
 		$http.put('/api/issues/' + $scope.issueId + '/assignIssue/' , 
-				   {assignedId: $scope.assigned._id})
+				   {assignedId: $scope.assigned._id, comment: $scope.comment})
 			.success(function (result){
 				$modalInstance.close(result.data);
 			})
