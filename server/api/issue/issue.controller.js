@@ -152,13 +152,17 @@ exports.addIssue = function(req, res){
 	newIssue.save(function(err){
 		if(!err){
 			console.log('newIssue ' + newIssue.id); 
+			Issue.findOne({_id : newIssue.id}).populate('reporter')
+					.populate('assigned').exec(function(err, issueToReturn){
+			
 				// Se arma la resupusta.
-			var response = {
-				data : issue,
-				status  : 200,
-				success : 'Added Successfully'
-			}
-			res.json(200, response);
+				var response = {
+					data : issueToReturn,
+					status  : 200,
+					success : 'Added Successfully'
+				}
+				res.json(200, response);
+				});					
 		}else{
 			console.error(err);
 			var response = {
