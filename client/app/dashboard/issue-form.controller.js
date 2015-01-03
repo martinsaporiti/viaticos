@@ -16,8 +16,10 @@ angular.module('angularFullStackApp')
 	$scope.processForm = function(){
 		if($scope.mode == 'create'){
 			$scope.addIssue();
-		}else{
-			$scope.editIssue();
+		}else{ 
+			if($scope.mode == 'edit'){
+				$scope.editIssue();
+			}
 		}
 	}
 	
@@ -46,7 +48,8 @@ angular.module('angularFullStackApp')
 	}
 	
 	$scope.cancel = function () {
-		$modalInstance.dismiss('cancel');
+		$scope.mode = '';
+		$modalInstance.close('cancel');
 	};
 	
 	

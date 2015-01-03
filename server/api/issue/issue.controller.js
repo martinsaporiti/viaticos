@@ -25,7 +25,7 @@ exports.index = function(req, res) {
 	var actualUser = userController.getActualUser();
 	console.log('Obteniendo issues del usuario: ' +  actualUser);
 	Issue.find({assigned : actualUser, status: 'Abierto'}).populate('reporter')
-		.populate('assigned').exec(function(err, issues){
+		.populate('assigned').populate('comments.author').exec(function(err, issues){
 		if(err){
 			console.error(err);
 		}else{
@@ -88,17 +88,19 @@ exports.assignIssue = function(req, res){
 	
 	var issueId = req.param('issueId');
 	var assignedId = req.param('assignedId');
+	var authorId = req.param('authorId');
 	var comment = req.param('comment');
 	
 	console.log('Assigning issue: ' + req.param('issueId'));
 	console.log('Assigned: ' + req.param('assignedId'));
-	
+	console.log('Author: ' + req.param('authorId'));
+
 	Issue.findOne({ _id: issueId }, function (err, issue){
 		if(!err){
 			issue.assigned = assignedId;
 			issue.assignedDate =  Date.now();
 			var newComment = {
-				author : userController.getActualUser(),
+				author : authorId,
 				date : Date.now(),
 				text : comment,
 			};

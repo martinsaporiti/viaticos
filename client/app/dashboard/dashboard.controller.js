@@ -41,13 +41,15 @@ angular.module('angularFullStackApp').
 	
 		/* *** */
 
-//		$scope.approveIssue = function(issueId, index){
-//			$http.get('/api/issues/' + issueId + '/approveIssue/')
-//				.success(function(result) {
-//					$scope.issues[index] = result.data;
-//				});	
-//		}
-
+		// Muestra el botón de comentarios solamente si tiene comentarios.
+		$scope.showCommentsButton = function(issue){
+			return issue.comments.length > 0;
+		}
+		
+		$scope.showComments = function(issue){
+			$scope.openCommentsModal(issue);
+		}
+		
 		$scope.removeIssue = function(issueId, index){
  			$http.delete('/api/issues/' + issueId)
 				.success(function(result) {
@@ -138,4 +140,25 @@ angular.module('angularFullStackApp').
 			});
 		};
 		
+	
+		// Funcionalidad para abrir la ventana modal de comentarios 
+		// de un issue.
+		$scope.openCommentsModal = function (issue) {
+			var modalInstance = $modal.open({
+			  templateUrl: 'comments.html',
+			  controller: 'ModalInstanceCommentsCtrl',
+			  resolve: { 
+				  issue : function(){
+					  return issue;
+				  }
+			  }
+			});
+
+
+			modalInstance.result.then(function (result){
+				//
+			}, function () {
+				// 
+			});
+		};
  });

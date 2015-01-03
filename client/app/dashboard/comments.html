@@ -1,0 +1,26 @@
+<div>
+    <script type="text/ng-template" id="comments.html">
+        <div class="modal-header">
+            <h4 class="modal-title">Comentarios</h4>
+        </div>
+		<div class="panel panel-default"  ng-repeat="comment in issue.comments">
+			<div class="panel-body avatar">
+				<div class="row">
+					<div class="col-xs-2">
+						<img class="img-circle" 
+							src={{comment.author.avatar}}
+							tooltip="{{comment.author.name}}"></img>
+					</div>	
+					<div class="col-xs-10">
+						<div>{{comment.date | date:'dd-MM-yyyy'}}</div>
+						<div>{{comment.text}}</div>	  
+					</div>	
+				</div>	
+			</div>
+		</div>
+		<div class="modal-footer">
+			<button class="btn btn-default" ng-click="cancel()">Cancel</button>
+		</div>
+		</form>
+    </script>
+</div>

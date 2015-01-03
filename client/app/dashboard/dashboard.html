@@ -22,7 +22,8 @@
 							  tooltip="{{issue.reporter.name}}"></img>	 
 						 </div>
 						 <div class="col-xs-7">
-							 <h6 class="panel-title">#{{issue._id}} - {{issue.summary.substring(0,50) + '...'}}</h6>
+							 <h6 class="panel-title">#{{issue._id.substring(0,5)}} 
+								 - {{issue.summary.substring(0,50)}}</h6>
 							 <p>{{issue.date | date:'dd-MM-yyyy'}}</p>
 						 </div>
 						<div class="col-xs-3 pull-right">	
@@ -38,6 +39,7 @@
 								<button type="button" tooltip="Eliminar" class="btn btn-default" 
 										ng-click="removeIssue(issue._id, $index)">
 									<i class="glyphicon glyphicon-trash"></i></button>
+								
 						</div>
 					</div>
 				</div>	
@@ -51,6 +53,11 @@
 									Modo: {{issue.mode.name}} <br>
 									Factura: {{issue.ticket}} - Monto: {{issue.amount}}<br>
 									Resumen: {{issue.summary}}<br>
+									<div class="col-xs-1 pull-right">	
+										<button type="button" tooltip="Comentarios" class="btn btn-default" 
+											ng-click="showComments(issue)" ng-show="showCommentsButton(issue)">
+											<i class="glyphicon glyphicon-comment"></i></button>
+									</div>	
 								</span>
 							</div>
 						</div>
@@ -83,11 +90,12 @@
 
 <div ng-include="'app/dashboard/issue-form.html'"></div>
 <div ng-include="'app/dashboard/assign-approve-Form.html'"></div>
+<div ng-include="'app/dashboard/comments.html'"></div>
 
 <footer class="footer">
   <div class="container">
       <p>FluxIT - Viáticos v0.0.1 |
         <a href="https://twitter.com/martinsaporiti">@martinsaporiti</a> |
-        <a href="https://github.com/DaftMonk/generator-angular-fullstack/issues?state=open">Issues</a></p>
+        <a href="https://github.com/martinsaporiti/viaticos/issues?state=open">Issues</a></p>
   </div>
 </footer>

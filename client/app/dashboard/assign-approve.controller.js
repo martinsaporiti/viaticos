@@ -36,7 +36,7 @@ angular.module('angularFullStackApp')
 
 	$scope.assignIssue = function(){
 		$http.put('/api/issues/' + $scope.issueId + '/assignIssue/' , 
-				   {assignedId: $scope.assigned._id, comment: $scope.comment})
+				   {assignedId: $scope.assigned._id, comment: $scope.comment, authorId : Session.user._id})
 			.success(function (result){
 				$modalInstance.close(result.data);
 			})
